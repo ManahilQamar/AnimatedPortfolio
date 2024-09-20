@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Responsive Navbar with VHS Glitch Effect and Smooth Custom Cursor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 40px;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            display: flex;
+        }
+
+        .navbar ul li {
+            position: relative;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: black;
+            padding: 10px 20px;
+            display: block;
+            position: relative;
+        }
+
+        .navbar ul li:first-child a {
+            background-color: black;
+            color: white;
+        }
+
+        .navbar ul li::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: black;
+            transition: width 0.4s ease;
+        }
+
+        .navbar ul li:hover::before {
+            width: 100%;
+        }
+
+        .navbar ul li a:hover {
+            color: white;
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .menu-icon span {
+            display: block;
+            width: 30px;
+            height: 2px;
+            background-color: black;
+            margin: 5px 0;
+            transition: all 0.5s ease;
+        }
+
+        @media (max-width: 800px) {
+            .navbar ul {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 50px;
+                right: -100%;
+                background-color: #fff;
+                width: 60%;
+                height: 100vh;
+                text-align: center;
+                transition: right 0.5s ease;
+                z-index: 100;
+            }
+
+            .navbar ul li {
+                display: block;
+                margin: 10px 0;
+            }
+
+            .navbar ul.show {
+                right: 0;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+
+            .menu-icon.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .menu-icon.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-icon.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+            .image-section img  {
+                display: none;
+            }
+          
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: calc(73vh - 2px);
+            width: 90%;
+            max-width: 1200px;
+            background-color: #f1fbfb;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .image-section {
+            position: relative;
+            right: 2.4rem;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-section img {
+            max-width: 100%;
+            width: 23rem;
+            height: 21rem;
+            object-fit: cover;
+            position: relative;
+            z-index: 2;
+        }
+
+        .vhs-glitch {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .vhs-glitch::before,
+        .vhs-glitch::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            animation: glitch-lines 0.15s infinite ease-in-out;
+        }
+
+        .vhs-glitch::before {
+            top: 20%;
+        }
+
+        .vhs-glitch::after {
+            top: 80%;
+            animation-duration: 0.08s;
+            animation-delay: 0.3s;
+        }
+
+        @keyframes glitch-lines {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .text-section {
+            flex: 1;
+            padding-right: 8rem;
+            z-index: 1;
+        }
+
+        .text-section h1 {
+            font-family: sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #333;
+            margin-bottom: 50px;
+            font-size: 3rem;
+            letter-spacing: 4px;
+            position: relative;
+        }
+
+        .text-section p {
+            font-size: 25px;
+            color: #8d8d8d;
+            margin: 10px 0;
+        }
+
+        .text-section span {
+            font-size: 25px;
+            color: #000;
+            font-weight: 600;
+        }
+
+        .text-section .btn {
+            background-color: #000;
+            color: white;
+            padding: 20px 40px;
+            cursor: pointer;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            font-size: 17px;
+            border: 2px solid black;
+        }
+
+      .text-section .btn:hover{
+        background: transparent;
+        color: #000;
+      }
+
+       
+
+        .cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-circle {
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgb(167, 164, 164);
+            border-radius: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out;
+            /* Smooth movement */
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+            color: #000000;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .copyRight {
+            display: flex;
+            margin-bottom: 2px;
+            font-size: 15px;
+        }
+
+        .icons {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+        }
+
+        .icons i {
+            font-size: 20px;
+            color: #000;
+        }
+
+        /* text animation */
+        .text-container {
+      position: relative;
+      left: 6.5rem;
+      bottom: 2.4rem;
+    }
+
+    .coder1,
+    .coder2,
+    .coder3 {
+      font-size: 1.5rem;
+      font-weight: bold;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: bottom;
+      opacity: 0;
+      animation: flipText 9s infinite;
+    }
+
+    .coder1 {
+      animation-delay: 0s;
+    }
+
+    .coder2 {
+      animation-delay: 3s;
+    }
+
+    .coder3 {
+      animation-delay: 6s;
+    }
+
+    @keyframes flipText {
+
+      0%,
+      33.33% {
+        opacity: 0;
+        transform: rotateX(-90deg);
+      }
+
+      38.88%,
+      61.11% {
+        opacity: 1;
+        transform: rotateX(0deg);
+      }
+
+      66.66%,
+      70% {
+        opacity: 1;
+        transform: rotateX(-45deg);
+      }
+
+      70%,
+      100% {
+        opacity: 0;
+        transform: rotateX(90deg);
+      }
+    }
+
+      /* Your existing CSS code */
+
+      .text-section {
+            flex: 1;
+            padding-right: 8rem;
+            z-index: 1;
+            transition: transform 0.8s ease-in-out;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .rotate-active {
+            animation: textsection 2s ;
+
+        }
+        @keyframes textsection {
+            0% {
+                transform: rotateX(30deg);
+            }
+            100% {
+                transform: rotateX(90deg);
+            }
+        }
+
+        /* Back face for about section */
+        .about-section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            backface-visibility: hidden;
+            display: none;
+        }
+
+
+        /* Front face for main content */
+        .main-content {
+            backface-visibility: hidden;
+        }
+
+        .text-section h1,
+        .text-section p,
+        .text-section .btn {
+            backface-visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">CODER</div>
+        <ul>
+            <li><a href="#" onclick="showHome()">Home</a></li>
+            <li><a href="#" onclick="showAbout()">About</a></li>
+           <li><a href="#">Portfolio</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">News</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="menu-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="image-section">
+            <img src="img.jpg" alt="Image">
+            <div class="vhs-glitch"></div>
+        </div>
+        <div class="text-section">
+            <h1>MENUCODER</h1>
+            <p>Creative <span>
+                <div class="text-container">
+                    <h4 class="coder1">CODERS</h4>
+                    <h4 class="coder2">DEVELOPERS</h4>
+                    <h4 class="coder3">ENGINEERS</h4>
+                  </div>
+            </span></p>
+            <button class="btn">Click here</button>
+            <!-- About section -->
+            <div class="about-section" id="aboutSection">
+               
+                <button class="btn" onclick="showHome()">Back to Home</button>
+            </div>
+        </div>
+    </div>
+       
+
+    <div class="footer">
+        <p class="copyRight">CopyRight</p>
+        <div class="icons">
+            <i class='bx bxl-instagram-alt'></i>
+            <i class='bx bxl-youtube'></i>
+            <i class='bx bxl-linkedin'></i>
+            <i class='bx bxl-twitter'></i>
+
+              <!-- About section -->
+              <div class="about-section" id="aboutSection">
+                <h1>About Us</h1>
+                <button>
+                    fgfhgjgh
+                </button>
+                <button class="btn" onclick="showHome()">Back to Home</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor HTML -->
+    <div class="cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-circle"></div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('.navbar ul');
+            const menuIcon = document.querySelector('.menu-icon');
+            menu.classList.toggle('show');
+            menuIcon.classList.toggle('active');
+        }
+
+
+          // Show About section with rotation from bottom-left corner
+          function showAbout() {
+            const textSection = document.querySelector('.text-section');
+            const aboutSection = document.querySelector('#aboutSection');
+            const mainContent = document.querySelector('.main-content');
+
+            // Trigger the rotation
+            textSection.classList.add('rotate-active');
+
+            setTimeout(() => {
+                mainContent.style.display = 'none';
+                aboutSection.style.display = 'block';
+            }, 1500); // Switch content at 1.5s
+        }
+
+        // Show Home section (reset content)
+        function showHome() {
+            const textSection = document.querySelector('.text-section');
+            const aboutSection = document.querySelector('#aboutSection');
+            const mainContent = document.querySelector('.main-content');
+
+            // Reverse rotation
+            textSection.classList.remove('rotate-active');
+
+            setTimeout(() => {
+                mainContent.style.display = 'block';
+                aboutSection.style.display = 'none';
+            }, 1500); // Switch content back after 1.5s
+        }
+
+        // Custom Cursor Script
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorCircle = document.querySelector('.cursor-circle');
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function updateCursor() {
+            // Move the dot
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
+
+            // Move the circle with some delay
+            const circleX = mouseX - cursorCircle.clientWidth / 2;
+            const circleY = mouseY - cursorCircle.clientHeight / 2;
+            cursorCircle.style.transform = `translate(${circleX}px, ${circleY}px)`;
+
+            requestAnimationFrame(updateCursor);
+        }
+
+        updateCursor();
+    </script>
+
+</body>
+
+</html>

@@ -699,7 +699,7 @@
         <div class="text-section">
             <div class="text-flip-wrap" id="textFlipWrap">
                 <div class="text-inner" id="textInner">
-                    <h1>MENUCODER</h1>
+                    <h1>MANAHIL</h1>
                     <p>Creative
                         <span class="text-container">
                             <span class="coder1">CODERS</span>
@@ -707,8 +707,7 @@
                             <span class="coder3">ENGINEERS</span>
                         </span>
                     </p>
-                    <button class="btn">Click here</button>
-                </div>
+<button class="btn" onclick="goToContact()">Contact Me</button>                </div>
             </div>
         </div>
     </div>
@@ -769,8 +768,7 @@ window.addEventListener('resize', () => {
                             <span class="coder3">ENGINEERS</span>
                         </span>
                     </p>
-                    <button class="btn">Click here</button>
-                `
+<button class="btn" onclick="goToContact()">Contact Me</button>                `
             },
             about: {
                 flip: 'flip-top-bottom',
@@ -866,6 +864,20 @@ window.addEventListener('resize', () => {
                 menuIcon.classList.remove('active');
             });
         });
+
+
+function goToContact() {
+    if (isAnimating || currentTab === 'contact') return;
+
+    // update nav active highlight
+    navLinks.forEach(l => l.parentElement.classList.remove('active'));
+    const contactLink = document.querySelector('#navList a[data-tab="contact"]');
+    if (contactLink) contactLink.parentElement.classList.add('active');
+
+    switchTab('contact');
+};
+
+
 
         function switchTab(tab) {
             const data = tabContent[tab];
